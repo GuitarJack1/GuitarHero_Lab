@@ -12,7 +12,7 @@
 public class GuitarHeroLite {
 
     public static void main(String[] args) {
-
+    	//Hello
         // Create two guitar strings, for concert A and C
         double CONCERT_A = 440.0;
         double CONCERT_C = CONCERT_A * Math.pow(2, 3.0/12.0);
