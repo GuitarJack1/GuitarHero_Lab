@@ -19,6 +19,13 @@ public class GuitarString {
 	}
 	public void pluck() {
 		// set the buffer to white noise
+		rb = new RingBuffer(size);
+		for(int i = 0;i<size;i++)
+		{
+			rb.enqueue((Math.random()*1.0101010101)-.5);
+		}
+		
+		
 	}
 	public void tic() {
 		// advance the simulation one time step
