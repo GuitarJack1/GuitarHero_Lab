@@ -26,7 +26,7 @@ public class GuitarString {
 		rb = new RingBuffer(size);
 		for(int i = 0;i<size;i++)
 		{
-			rb.enqueue((Math.random()*1.0101010101)-.5);
+			rb.enqueue((Math.random()*1.0101010101)-.5) ;
 		}
 		
 		
