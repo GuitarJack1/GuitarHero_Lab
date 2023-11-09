@@ -32,9 +32,8 @@ public class RingBuffer {
 	public void enqueue(double x) {
 		// add item x to the end (if not full)
 		if (isFull()) {
-			throw new NoSuchElementException();
+			throw new IllegalStateException();
 		}
-		int temp = end;
 		end++;
 		if (end == buffer.length) {
 			end = 0;
