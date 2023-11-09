@@ -1,5 +1,10 @@
 
 public class RingBuffer {
+	
+	double[] buffer;
+	int start;
+	int end;
+	
 	public RingBuffer(int capacity){
 		// create an empty ring buffer, with given capacity
 	}
