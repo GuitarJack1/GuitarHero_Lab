@@ -11,7 +11,7 @@ public class RingBuffer {
 		// create an empty ring buffer, with given capacity
 		size = 0;
 		start = 0;
-		end = 0;
+		end = -1;
 		buffer = new double[capacity];
 	}
 	public int size() {
@@ -51,9 +51,10 @@ public class RingBuffer {
 		if (start == buffer.length) {
 			start = 0;
 		}
+		double tempReturn = buffer[temp];
 		buffer[temp] = 0.0;
 		size--;
-		return buffer[temp];
+		return tempReturn;
 	}
 	public double peek(){
 		// return item from the front of the buffer
@@ -67,7 +68,7 @@ public class RingBuffer {
 		
 		String string = "[";
 		for (int i = start; i != end; i++) {
-			if (i > buffer.length) {
+			if (i >= buffer.length) {
 				i = 0;
 			}
 			string += buffer[i] + ", ";
