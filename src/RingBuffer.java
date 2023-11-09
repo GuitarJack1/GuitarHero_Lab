@@ -5,24 +5,29 @@ public class RingBuffer {
 	double[] buffer;
 	int start;
 	int end;
+	int size;
 	
 	public RingBuffer(int capacity){
 		// create an empty ring buffer, with given capacity
+		size = 0;
+		start = 0;
+		end = 0;
+		buffer = new double[capacity];
 	}
 	public int size() {
 		// return number of items currently in the buffer
 		
-		return 0;
+		return size;
 	}
 	public boolean isEmpty() {
 		// is the buffer empty (size equals zero)?
 		
-		return true;
+		return size == 0;
 	}
 	public boolean isFull() {
 		// is the buffer full  (size equals capacity)?
 		
-		return true;
+		return size == buffer.length;
 	}
 	public void enqueue(double x) {
 		// add item x to the end (if not full)
