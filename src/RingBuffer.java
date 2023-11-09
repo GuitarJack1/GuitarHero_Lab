@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class RingBuffer {
 	
@@ -25,21 +26,49 @@ public class RingBuffer {
 	}
 	public void enqueue(double x) {
 		// add item x to the end (if not full)
+		if (isFull()) {
+			throw new NoSuchElementException();
+		}
+		int temp = end;
+		end++;
+		if (end == buffer.length) {
+			end = 0;
+		}
+		size++;
+		buffer[end] = x;
 	}
 	public double dequeue() {
 		// delete and return item from the front (if not empty)
-		
-		return 0.0;
+		if (isEmpty()) {
+			throw new NoSuchElementException();
+		}
+		int temp = start;
+		start++;
+		if (start == buffer.length) {
+			start = 0;
+		}
+		buffer[temp] = 0.0;
+		size--;
+		return buffer[temp];
 	}
 	public double peek(){
 		// return item from the front of the buffer
-		
-		return 0.0;
+		if (isEmpty()) {
+			throw new NoSuchElementException();
+		}
+		return buffer[start];
 	}
 	public String toString() {
 		//form [front, next, …, next, last]
 		
-		return null;
+		String string = "[";
+		for (int i = start; i != end; i++) {
+			if (i > buffer.length) {
+				i = 0;
+			}
+			string += buffer[i] + ", ";
+		}
+		return string + buffer[end] + "]";
 	}
 
 }
