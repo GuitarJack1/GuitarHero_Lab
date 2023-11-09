@@ -33,6 +33,8 @@ public class GuitarString {
 	}
 	public void tic() {
 		// advance the simulation one time step
+		double firstElem = rb.dequeue();
+		rb.enqueue((firstElem + rb.peek())/2 * 0.994);
 		tics++;
 	}
 	public double sample() {
