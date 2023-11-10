@@ -27,6 +27,7 @@ public class GuitarHero {
 	        StdDraw.text(TEXT_POS_X, TEXT_POS_Y, "Type a key to play a note!");
 	        
 	        play(keyboard);
+	        
 	    }
 	    
 	    private static void play(Map<String, GuitarString> keyboard) {        // the main input loop
