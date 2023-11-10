@@ -11,8 +11,6 @@ public class GuitarHero {
 	 *  standard drawing window.
 	 *
 	 ****************************************************************************/
-
-	public class GuitarHeroLite {
 		 static Map<String, GuitarString> keyboard;
 		
 	    public static void main(String[] args) {
@@ -68,5 +66,3 @@ public class GuitarHero {
 	    	return (440* Math.pow(1.05956,i-25));
 	    }
 	}
-
-}
