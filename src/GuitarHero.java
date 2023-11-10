@@ -37,11 +37,14 @@ public class GuitarHero {
 	    }
 	    
 	    private static void populateKeyboard(String input) {
-	    	
+	    	for(int i = 1;i<=input.length();i++)
+	    	{
+	    		keyboard.put(input.substring(i-1,i), new GuitarString(frequency(i)));
+	    	}
 	    }
 	    
 	    private static double frequency(int i) {
-	    	return 0;
+	    	return (440* Math.pow(1.05956,i-25));
 	    }
 	}
 
