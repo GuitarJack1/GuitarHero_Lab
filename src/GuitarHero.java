@@ -31,9 +31,29 @@ public class GuitarHero {
 	    
 	    private static void play(Map<String, GuitarString> keyboard) {        // the main input loop
 	        while (true) {
+	        	// check if the user has typed a key, and, if so, process it
+	            if (StdDraw.hasNextKeyTyped()) {
+	 
+	                // the user types this character
+	                char key = StdDraw.nextKeyTyped();
+	                if (keyboard.keySet().contains(""+key)) {
+	                	// pluck the corresponding string
+	                	keyboard.get(""+key).pluck();
+	                }
+	                
+	            }
+
+	            // compute the superposition of the samples
+	            double sample = 0;
+	            for (String key : keyboard.keySet()) {
+	            	// advance the simulation of each guitar string by one step
+	            	sample += keyboard.get(key).sample();
+	            	keyboard.get(key).tic();
+	            }
 	            
+	            // send the result to standard audio
+	            StdAudio.play(sample);
 	        }
-	        
 	    }
 	    
 	    private static void populateKeyboard(String input) {
