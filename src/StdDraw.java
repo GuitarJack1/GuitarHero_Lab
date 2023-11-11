@@ -1,4 +1,4 @@
-// Copyright 2000–2011, Robert Sedgewick and Kevin Wayne.
+// Copyright 2000ï¿½2011, Robert Sedgewick and Kevin Wayne.
 
 /*************************************************************************
  *  Compilation:  javac StdDraw.java

@@ -50,8 +50,8 @@ public class GuitarHeroLite {
             StdAudio.play(sample);
 
             // advance the simulation of each guitar string by one step
-            stringA.tic();
-            stringC.tic();
+            stringA.tic(false);
+            stringC.tic(false);
         }
         
     }

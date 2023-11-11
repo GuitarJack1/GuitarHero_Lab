@@ -31,10 +31,14 @@ public class GuitarString {
 		
 		
 	}
-	public void tic() {
+	public void tic(boolean hold) {
 		// advance the simulation one time step
 		double firstElem = rb.dequeue();
-		rb.enqueue((firstElem + rb.peek())/2 * 0.994);
+		if (!hold) {
+			rb.enqueue((firstElem + rb.peek())/2 * 0.994);
+		}else {
+			rb.enqueue(firstElem);
+		}
 		tics++;
 	}
 	public double sample() {
