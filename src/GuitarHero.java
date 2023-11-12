@@ -45,9 +45,8 @@ public class GuitarHero {
 	                char key = StdDraw.nextKeyTyped();
 	                if (keyboard.keySet().contains(""+key)) {
 	                	// pluck the corresponding string
-	                	if (!alreadyPressed.remove(""+key)) {
+	                	if (!alreadyPressed.contains(""+key)) {
 	                		keyboard.get(""+key).pluck();
-	                	}else {
 	                		alreadyPressed.add(""+key);
 	                	}
 	                }
@@ -60,6 +59,9 @@ public class GuitarHero {
 	            	// advance the simulation of each guitar string by one step
 	            	sample += keyboard.get(key).sample();
 	            	keyboard.get(key).tic(StdDraw.isKeyPressed(keyToInt.get(key)));
+	            	if (!StdDraw.isKeyPressed(keyToInt.get(key))) {
+	            		alreadyPressed.remove(key);
+	            	}
 	            }
 	            
 	            // send the result to standard audio
