@@ -15,7 +15,7 @@ public class GuitarHero {
 		 static Map<String, GuitarString> keyboard;
 		 static Map<String, Integer> keyToInt;
 		 static Set<String> alreadyPressed;
-		 static final boolean NORMAL = false;
+		 static boolean NORMAL = false;
 		
 	    public static void main(String[] args) {
 	    	//Hello
