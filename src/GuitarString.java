@@ -31,7 +31,12 @@ public class GuitarString {
 		
 		
 	}
-	public void tic(boolean hold) {
+	public void tic() {
+		// advance the simulation one time step
+		double firstElem = rb.dequeue();
+		rb.enqueue((firstElem + rb.peek())/2 * 0.994);
+	}
+	public void ticHold(boolean hold) {
 		// advance the simulation one time step
 		double firstElem = rb.dequeue();
 		if (!hold) {

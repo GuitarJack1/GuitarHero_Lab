@@ -15,6 +15,7 @@ public class GuitarHero {
 		 static Map<String, GuitarString> keyboard;
 		 static Map<String, Integer> keyToInt;
 		 static Set<String> alreadyPressed;
+		 static final boolean NORMAL = false;
 		
 	    public static void main(String[] args) {
 	    	//Hello
@@ -45,9 +46,13 @@ public class GuitarHero {
 	                char key = StdDraw.nextKeyTyped();
 	                if (keyboard.keySet().contains(""+key)) {
 	                	// pluck the corresponding string
-	                	if (!alreadyPressed.contains(""+key)) {
+	                	if (!NORMAL) {
+		                	if (!alreadyPressed.contains(""+key)) {
+		                		keyboard.get(""+key).pluck();
+		                		alreadyPressed.add(""+key);
+		                	}
+	                	}else {
 	                		keyboard.get(""+key).pluck();
-	                		alreadyPressed.add(""+key);
 	                	}
 	                }
 	                
@@ -58,9 +63,13 @@ public class GuitarHero {
 	            for (String key : keyboard.keySet()) {
 	            	// advance the simulation of each guitar string by one step
 	            	sample += keyboard.get(key).sample();
-	            	keyboard.get(key).tic(StdDraw.isKeyPressed(keyToInt.get(key)));
-	            	if (!StdDraw.isKeyPressed(keyToInt.get(key))) {
-	            		alreadyPressed.remove(key);
+	            	if (!NORMAL) {
+		            	keyboard.get(key).ticHold(StdDraw.isKeyPressed(keyToInt.get(key)));
+		            	if (!StdDraw.isKeyPressed(keyToInt.get(key))) {
+		            		alreadyPressed.remove(key);
+		            	}
+	            	}else {
+	            		keyboard.get(key).tic();
 	            	}
 	            }
 	            
