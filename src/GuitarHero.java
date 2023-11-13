@@ -27,6 +27,7 @@ public class GuitarHero {
 	    	populateKeyboard("q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ");
 	    	populateKeyToInt();
 	        
+	    	KeyboardHero kh = new KeyboardHero(1000, 1000);
 	        play(keyboard);
 	        
 	    }
