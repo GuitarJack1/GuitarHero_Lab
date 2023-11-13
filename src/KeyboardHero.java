@@ -9,6 +9,17 @@ public class KeyboardHero {
 	
 	public KeyboardHero(int width, int height) {
 		StdDraw.setCanvasSize(width, height);
+		StdDraw.setPenColor(Color.WHITE);
+		
+		StdDraw.filledRectangle(0.0, 1.02, 0.2, 0.06);
+		StdDraw.setPenColor(Color.BLACK);
+		StdDraw.rectangle(0.0, 1.02, 0.2, 0.06);
+		StdDraw.setPenColor(Color.BLACK);
+		StdDraw.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		StdDraw.text(0.07, 1.02, "Instrument: Electronic");
+		StdDraw.text(0.07, 0.99, "Press (Shift) to change");
+		StdDraw.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		
 		StdDraw.setPenColor(BLACKKEY_UNPRESSED);
 		Set<Integer> notBlackKeys = new HashSet<Integer>();
 		notBlackKeys.add(1);
@@ -27,10 +38,27 @@ public class KeyboardHero {
 		}
 	}
 	
-	public static void pressKey(String key) {
+	public void pressKey(String key) {
 		
 	}
-	public static void unPressKey(String key) {
+	public void unPressKey(String key) {
 		
+	}
+	
+	public void setClassical(boolean setNormal) {
+		StdDraw.setPenColor(Color.WHITE);
+		StdDraw.filledRectangle(0.0, 1.02, 0.2, 0.06);
+		StdDraw.setPenColor(Color.BLACK);
+		StdDraw.rectangle(0.0, 1.02, 0.2, 0.06);
+		StdDraw.setPenColor(Color.BLACK);
+		StdDraw.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		if (setNormal) {
+			StdDraw.text(0.07, 1.02, "Instrument: Classical");
+			StdDraw.text(0.07, 0.99, "Press (Shift) to change");
+		}else {
+			StdDraw.text(0.07, 1.02, "Instrument: Electronic");
+			StdDraw.text(0.07, 0.99, "Press (Shift) to change");
+		}
+		StdDraw.setFont(new Font("SansSerif", Font.PLAIN, 16));
 	}
 }

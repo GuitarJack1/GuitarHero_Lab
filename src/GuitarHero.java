@@ -15,7 +15,9 @@ public class GuitarHero {
 		 static Map<String, GuitarString> keyboard;
 		 static Map<String, Integer> keyToInt;
 		 static Set<String> alreadyPressed;
-		 static boolean NORMAL = false;
+		 static KeyboardHero keyHero;
+		 static boolean normal = false;
+		 static final int CHANGEINSTRUMENT_KEYCODE = 16; //Shift
 		
 	    public static void main(String[] args) {
 	    	//Hello
@@ -27,7 +29,7 @@ public class GuitarHero {
 	    	populateKeyboard("q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ");
 	    	populateKeyToInt();
 	        
-	    	KeyboardHero kh = new KeyboardHero(700, 700);
+	    	keyHero = new KeyboardHero(700, 700);
 	        play(keyboard);
 	        
 	    }
@@ -42,14 +44,19 @@ public class GuitarHero {
 	                char key = StdDraw.nextKeyTyped();
 	                if (keyboard.keySet().contains(""+key)) {
 	                	// pluck the corresponding string
-	                	if (!NORMAL) {
+	                	if (!alreadyPressed.contains(""+key)) {
+	                		keyHero.pressKey(""+key);
+	                	}
+	                	
+	                	if (!normal) {
 		                	if (!alreadyPressed.contains(""+key)) {
 		                		keyboard.get(""+key).pluck();
-		                		alreadyPressed.add(""+key);
 		                	}
 	                	}else {
 	                		keyboard.get(""+key).pluck();
 	                	}
+	                	
+	                	alreadyPressed.add(""+key);
 	                }
 	                
 	            }
@@ -59,18 +66,25 @@ public class GuitarHero {
 	            for (String key : keyboard.keySet()) {
 	            	// advance the simulation of each guitar string by one step
 	            	sample += keyboard.get(key).sample();
-	            	if (!NORMAL) {
+	            	if (!normal) {
 		            	keyboard.get(key).ticHold(StdDraw.isKeyPressed(keyToInt.get(key)));
-		            	if (!StdDraw.isKeyPressed(keyToInt.get(key))) {
-		            		alreadyPressed.remove(key);
-		            	}
 	            	}else {
 	            		keyboard.get(key).tic();
+	            	}
+	            	
+	            	if (!StdDraw.isKeyPressed(keyToInt.get(key))) {
+	            		alreadyPressed.remove(key);
 	            	}
 	            }
 	            
 	            // send the result to standard audio
 	            StdAudio.play(sample);
+	            
+	            if (StdDraw.isKeyPressed(CHANGEINSTRUMENT_KEYCODE)) {
+	            	keyHero.setClassical(!normal);
+	            	normal = !normal;
+	            	while (StdDraw.isKeyPressed(CHANGEINSTRUMENT_KEYCODE)) {};
+	            }
 	        }
 	    }
 	    
