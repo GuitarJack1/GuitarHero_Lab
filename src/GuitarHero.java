@@ -26,11 +26,6 @@ public class GuitarHero {
 	    	
 	    	populateKeyboard("q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ");
 	    	populateKeyToInt();
-
-	        final double TEXT_POS_X = .2;
-	        final double TEXT_POS_Y = .5;
-	        
-	        StdDraw.text(TEXT_POS_X, TEXT_POS_Y, "Type a key to play a note!");
 	        
 	        play(keyboard);
 	        
