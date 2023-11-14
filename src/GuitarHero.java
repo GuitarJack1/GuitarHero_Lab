@@ -1,5 +1,4 @@
 import java.util.*;
-import java.lang.NullPointerException;
 
 public class GuitarHero {
 	/*****************************************************************************
@@ -17,6 +16,7 @@ public class GuitarHero {
 		 static Set<String> alreadyPressed;
 		 static KeyboardHero keyHero;
 		 static boolean normal = false;
+		 static Queue<Double> waveVisual = new LinkedList<Double>();
 		 static final int CHANGEINSTRUMENT_KEYCODE = 16; //Shift
 		
 	    public static void main(String[] args) {
@@ -85,6 +85,15 @@ public class GuitarHero {
 	            	while (StdDraw.isKeyPressed(CHANGEINSTRUMENT_KEYCODE)) {};
 	            }
 	        }
+	    }
+	    
+	    public static void drawWave(double[] waveArr) {
+	    	double prevX = 0.1;
+	    	double prevY = waveArr[0]*0.1 + 0.9;
+	    	
+	    	for (int i = 1; i < waveArr.length; i++) {
+	    		StdDraw.line(prevX, prevY, prevX + 0.005, waveArr[0]*0.1 + 0.9);
+	    	}
 	    }
 	    
 	    private static void populateKeyboard(String input) {
