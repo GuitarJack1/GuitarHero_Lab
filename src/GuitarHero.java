@@ -60,8 +60,6 @@ public class GuitarHero {
 	                }
 	                
 	            }
-
-	            // compute the superposition of the samples
 	            double sample = 0;
 	            for (String key : keyboard.keySet()) {
 	            	// advance the simulation of each guitar string by one step
@@ -72,7 +70,8 @@ public class GuitarHero {
 	            		keyboard.get(key).tic();
 	            	}
 	            	
-	            	if (!StdDraw.isKeyPressed(keyToInt.get(key))) {
+	            	if (!StdDraw.isKeyPressed(keyToInt.get(key)) && alreadyPressed.contains(""+key)) {
+	            		keyHero.unPressKey(""+key);
 	            		alreadyPressed.remove(key);
 	            	}
 	            }
