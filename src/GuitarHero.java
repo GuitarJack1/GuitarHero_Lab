@@ -208,7 +208,7 @@ public class GuitarHero {
 		public static void SetBackground(int width, int height) {
 			//StdDraw.filledRectangle(0.5, 0.505, .6, .43);
 			StdDraw.show(0);
-			StdDraw.picture(.503, .5, "cloud_background.png", 1, .85);
+			StdDraw.picture(.503, .5, "DarkCloudRainyBlahBG.png", 1, .85);
 			StdDraw.show();
 			/*
 			//StdDraw.setPenColor(Color.CYAN);
