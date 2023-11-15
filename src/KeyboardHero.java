@@ -84,7 +84,6 @@ public class KeyboardHero {
 		
 		//StdDraw.setPenColor(Color.BLACK);
 		//StdDraw.line(0,0,1,1);
-	
 		
 		for (int z=currentLine; z<height; z++) {
 			
@@ -104,6 +103,7 @@ public class KeyboardHero {
 	
 	public void whiteToGreen(String key)
 	{
+		StdDraw.show(0);
 		StdDraw.setPenColor(Color.GREEN);
 		StdDraw.filledRectangle(1.0/22.0/2.0 + (KeyLocations.get(key) * (1.0/22.0/1.0)), 0.0, 1.0/22.0/2.0, 0.5/7.0);
 		Set<Integer> closeBlackKeys = getBlacksNearWhite(key); 
@@ -125,10 +125,12 @@ public class KeyboardHero {
 			StdDraw.rectangle(1.0/22.0/2.0 + 1.0/22.0/2.0 + (KeyLocations.get(black.substring(Bkey,Bkey+1)) * (1.0/22.0/1.0)), 0.5/7.0/2.0, 1.0/22.0/4.0, 0.5/7.0/2.0);
 			}
 		}		
+		StdDraw.show();
 	}
 	
 	public void greenToWhite(String key)
 	{
+		StdDraw.show(0);
 		StdDraw.setPenColor(Color.WHITE);
 		StdDraw.filledRectangle(1.0/22.0/2.0 + (KeyLocations.get(key) * (1.0/22.0/1.0)), 0.0, 1.0/22.0/2.0, 0.5/7.0);
 		StdDraw.setPenColor(Color.BLACK);
@@ -152,25 +154,24 @@ public class KeyboardHero {
 			
 			}
 		}
-		
+		StdDraw.show();
 	}
 	public void blackToGreen(String key)
 	{
+		StdDraw.show(0);
 		StdDraw.setPenColor(Color.GREEN);
 		StdDraw.filledRectangle(1.0/22.0/2.0 + 1.0/22.0/2.0 + (KeyLocations.get(key) * (1.0/22.0/1.0)), 0.5/7.0/2.0, 1.0/22.0/4.0, 0.5/7.0/2.0);
 		StdDraw.rectangle(1.0/22.0/2.0 + 1.0/22.0/2.0 + (KeyLocations.get(key) * (1.0/22.0/1.0)), 0.5/7.0/2.0, 1.0/22.0/4.0, 0.5/7.0/2.0);
 		StdDraw.setPenColor(Color.BLACK);
+		StdDraw.show();
 	}
 	public void greenToBlack(String key)
 	{
+		StdDraw.show(0);
 		StdDraw.setPenColor(Color.BLACK);
 		StdDraw.filledRectangle(1.0/22.0/2.0 + 1.0/22.0/2.0 + (KeyLocations.get(key) * (1.0/22.0/1.0)), 0.5/7.0/2.0, 1.0/22.0/4.0, 0.5/7.0/2.0);
 		StdDraw.rectangle(1.0/22.0/2.0 + 1.0/22.0/2.0 + (KeyLocations.get(key) * (1.0/22.0/1.0)), 0.5/7.0/2.0, 1.0/22.0/4.0, 0.5/7.0/2.0);
-	}
-	public boolean isBlack(String letter)
-	{
-		//if(allKeys.get(letter))
-		return false;
+		StdDraw.show();
 	}
 	public Set<Integer> getBlacksNearWhite(String whiteKey)
 	{
@@ -208,10 +209,11 @@ public class KeyboardHero {
 	}
 	
 	public void setClassical(boolean setNormal) {
+		StdDraw.show(0);
 		StdDraw.setPenColor(Color.WHITE);
 		StdDraw.filledRectangle(0.0, 1.0218, 0.2, 0.071);
 		StdDraw.setPenColor(Color.BLACK);
-		StdDraw.rectangle(0.0, 1.0218, 0.2, 0.071);
+		StdDraw.rectangle(0.0, 1.0218, 0.22, 0.071);
 		StdDraw.setPenColor(Color.BLACK);
 		StdDraw.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		if (setNormal) {
@@ -222,5 +224,6 @@ public class KeyboardHero {
 			StdDraw.text(0.07, 0.99, "Press (Shift) to change");
 		}
 		StdDraw.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		StdDraw.show();
 	}
 }

@@ -21,10 +21,10 @@ public class GuitarHero {
 		 static KeyboardHero keyHero;
 		 static GuitarHeroVisualizer visualizer;
 		 static boolean normal = false;
-		 static final int WAVEVIS_ACCURACY = 60; //75;
-		 static final int WAVEVIS_FPS = 60; //45;
+		 static final int WAVEVIS_ACCURACY = 75; //75;
+		 static final int WAVEVIS_FPS = 45; //45;
 		 static final int LETTERSFALLING_FPS = 60; //60;
-		 static final int CHANGEINSTRUMENT_KEYCODE = 60; //Shift
+		 static final int CHANGEINSTRUMENT_KEYCODE = 16; //Shift
 		 
 		 static Set<FallingLetter> fLetters = new HashSet<FallingLetter>();
 		
@@ -135,10 +135,12 @@ public class GuitarHero {
 		        
 	            visualizer.addSample(sample);
 	            if (System.currentTimeMillis() % (int)((1.0/WAVEVIS_FPS) * 1000) == 0) {
+	            	//visualizer.addSample(sample);
 	            	visualizer.drawWave();
 	            }
 	            
 	            if (StdDraw.isKeyPressed(CHANGEINSTRUMENT_KEYCODE)) {
+	            	System.out.println("hi");
 	            	keyHero.setClassical(!normal);
 	            	normal = !normal;
 	            	while (StdDraw.isKeyPressed(CHANGEINSTRUMENT_KEYCODE)) {};
@@ -151,14 +153,6 @@ public class GuitarHero {
         	return alreadyPressed;
         }
 	    
-	    public static void drawWave(double[] waveArr) {
-	    	double prevX = 0.1;
-	    	double prevY = waveArr[0]*0.1 + 0.9;
-	    	
-	    	for (int i = 1; i < waveArr.length; i++) {
-	    		StdDraw.line(prevX, prevY, prevX + 0.005, waveArr[0]*0.1 + 0.9);
-	    	}
-	    }
 	    private static void populateKeyboard(String input) {
 	    	for(int i = 1;i<=input.length();i++)
 	    	{
@@ -213,7 +207,9 @@ public class GuitarHero {
 	    
 		public static void SetBackground(int width, int height) {
 			//StdDraw.filledRectangle(0.5, 0.505, .6, .43);
+			StdDraw.show(0);
 			StdDraw.picture(.503, .5, "cloud_background.png", 1, .85);
+			StdDraw.show();
 			/*
 			//StdDraw.setPenColor(Color.CYAN);
 			int red = 32;

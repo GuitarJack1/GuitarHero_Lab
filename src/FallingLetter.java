@@ -6,10 +6,10 @@ import java.util.Set;
 public class FallingLetter {
 	Stopwatch time;
 	
-	final double STARTING_Y = 0.9;
+	final double STARTING_Y = 0.7;
 	final double ENDING_Y = 0.1;
 	final double GOAL_POS = 0.15;
-	double changeInY;
+	//double changeInY;
 	
 	double xPos;
 	double yPos;
@@ -29,12 +29,11 @@ public class FallingLetter {
 		letter = key;
 		totalTime = timeToHitBottomInSeconds;
 		alive = true;
-		changeInY = (double)(ENDING_Y - yPos) / ((double)(totalTime) * (double)44100);
 	}
 	
 	public void update() {
 		yPos += getChangeInY();
-		if (yPos <= ENDING_Y) {
+		if (time.elapsedTime() >= totalTime) {
 			alive = false;
 		}
 	}
@@ -54,6 +53,6 @@ public class FallingLetter {
 	}
 	
 	public double getChangeInY() {
-		return changeInY;
+		return (double)(ENDING_Y - yPos) / ((double)(totalTime - time.elapsedTime()) * (double)44100);
 	}
 }
