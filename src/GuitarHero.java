@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.*;
 
 public class GuitarHero {
@@ -20,10 +21,10 @@ public class GuitarHero {
 		 static KeyboardHero keyHero;
 		 static GuitarHeroVisualizer visualizer;
 		 static boolean normal = false;
-		 static final int WAVEVIS_ACCURACY = 75;
-		 static final int WAVEVIS_FPS = 45;
-		 static final int LETTERSFALLING_FPS = 60;
-		 static final int CHANGEINSTRUMENT_KEYCODE = 16; //Shift
+		 static final int WAVEVIS_ACCURACY = 60; //75;
+		 static final int WAVEVIS_FPS = 60; //45;
+		 static final int LETTERSFALLING_FPS = 60; //60;
+		 static final int CHANGEINSTRUMENT_KEYCODE = 60; //Shift
 		 
 		 static Set<FallingLetter> fLetters = new HashSet<FallingLetter>();
 		
@@ -112,8 +113,11 @@ public class GuitarHero {
 		        if (System.currentTimeMillis() % (int)((1.0/LETTERSFALLING_FPS) * 1000) == 0) {
 		            StdDraw.show(0);
 		            StdDraw.setPenColor(StdDraw.WHITE);
-		            StdDraw.filledRectangle(0.5, 0.505, .6, .43);
+		           // StdDraw.filledRectangle(0.5, 0.505, .6, .43);
+		            SetBackground(700,700);
+		            StdDraw.show();
 		            StdDraw.setPenColor(StdDraw.BLACK);
+		        
 		            for (FallingLetter letter : fLetters) {
 		            	//System.out.println("Printing Letter: " + letter.letter() + ", at position: " + letter.x() + "x, and " + letter.y() + "y");
 		            	//System.out.print("hi");
@@ -206,4 +210,44 @@ public class GuitarHero {
 	    private static double frequency(int i) {
 	    	return (440* Math.pow(1.05956,i-25));
 	    }
+	    
+		public static void SetBackground(int width, int height) {
+			//StdDraw.filledRectangle(0.5, 0.505, .6, .43);
+			StdDraw.picture(.503, .5, "cloud_background.png", 1, .85);
+			/*
+			//StdDraw.setPenColor(Color.CYAN);
+			int red = 32;
+			int blue = 32;
+			int green = 32;
+			
+			int endRed = 255;
+			int endBlue = 255;
+			int endGreen = 255;
+		    
+			StdDraw.setPenColor(new Color(red,green,blue));
+			//StdDraw.filledRectangle(.5,.5,1,.8);
+			
+			int startPct = 20;
+			int currentLine = (int) (height * startPct);
+			
+			//StdDraw.setPenColor(Color.BLACK);
+			//StdDraw.line(0,0,1,1);
+		
+			
+			for (int z=currentLine; z<height; z++) {
+				
+				
+				
+				int currentRed = (int) (red + (endRed - red) * ((z - currentLine)/(double) (height-currentLine)));
+				int currentBlue = (int)  (blue + (endBlue - blue) * ((z - currentLine)/(double) (height-currentLine)));
+				int currentGreen = (int) (green + (endGreen - green) * ((z - currentLine)/(double) (height-currentLine)));
+				StdDraw.setPenColor(new Color(currentRed,currentBlue,currentGreen));
+				double lineHeight = 1 * z/(double) height;
+				StdDraw.line(0,lineHeight,1,lineHeight);
+			}
+			
+			StdDraw.picture(.5, .75, "darkcloud3.png", .6, .25);
+			*/
+		}
+
 	}

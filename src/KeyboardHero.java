@@ -15,11 +15,12 @@ public class KeyboardHero {
 	Map<String,Integer> KeyLocations;
 	public KeyboardHero(int width, int height) {
 		StdDraw.setCanvasSize(width, height);
-		StdDraw.setPenColor(Color.WHITE);
+		SetBackground(width,height);
 		
-		StdDraw.filledRectangle(0.0, 1.02, 0.2, 0.06);
+		StdDraw.setPenColor(Color.WHITE);
+		StdDraw.filledRectangle(0.0, 1.02, 0.218, 0.071);
 		StdDraw.setPenColor(Color.BLACK);
-		StdDraw.rectangle(0.0, 1.02, 0.2, 0.06);
+		StdDraw.rectangle(0.0, 1.02, 0.218, 0.071);
 		StdDraw.setPenColor(Color.BLACK);
 		StdDraw.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		StdDraw.text(0.07, 1.02, "Instrument: Electronic");
@@ -43,12 +44,15 @@ public class KeyboardHero {
 		notBlackKeys.add(11);
 		notBlackKeys.add(15);
 		notBlackKeys.add(18);
+
 		for (int i = 0; i < 22; i++) {
-				StdDraw.rectangle(1.0/22.0/2.0 + (i * (1.0/22.0/1.0)), 0.0, 1.0/22.0/2.0, 0.5/7.0);
+			     StdDraw.setPenColor(Color.WHITE);
+				StdDraw.filledRectangle(1.0/22.0/2.0 + (i * (1.0/22.0/1.0)), 0.0, 1.0/22.0/2.0, 0.5/7.0);
 				
 				KeyLocations.put(""+white.charAt(i), i);
 		}
 		int blackIndex = 0;
+		StdDraw.setPenColor(BLACKKEY_UNPRESSED);
 		for (int i = 0; i < 21; i++) {
 			if (!notBlackKeys.contains(i)){
 				StdDraw.filledRectangle(1.0/22.0/2.0 + 1.0/22.0/2.0 + (i * (1.0/22.0/1.0)), 0.5/7.0/2.0, 1.0/22.0/4.0, 0.5/7.0/2.0);
@@ -57,6 +61,47 @@ public class KeyboardHero {
 			}
 		}
 	}
+	
+
+	public void SetBackground(int width, int height) {
+		width = 800;
+		height =800;
+		
+		//StdDraw.setPenColor(Color.CYAN);
+		int red = 32;
+		int blue = 32;
+		int green = 32;
+		
+		int endRed = 255;
+		int endBlue = 255;
+		int endGreen = 255;
+	    
+		StdDraw.setPenColor(new Color(red,green,blue));
+		StdDraw.filledRectangle(.5,.5,1,1);
+		
+		double startPct = .072;
+		int currentLine = (int) (height * startPct);
+		
+		//StdDraw.setPenColor(Color.BLACK);
+		//StdDraw.line(0,0,1,1);
+	
+		
+		for (int z=currentLine; z<height; z++) {
+			
+			
+			
+			int currentRed = (int) (red + (endRed - red) * ((z - currentLine)/(double) (height-currentLine)));
+			int currentBlue = (int)  (blue + (endBlue - blue) * ((z - currentLine)/(double) (height-currentLine)));
+			int currentGreen = (int) (green + (endGreen - green) * ((z - currentLine)/(double) (height-currentLine)));
+			StdDraw.setPenColor(new Color(currentRed,currentBlue,currentGreen));
+			double lineHeight = 1 * z/(double) height;
+			StdDraw.line(0,lineHeight,1,lineHeight);
+		}
+		
+		StdDraw.picture(.5, .75, "darkcloud3.png", .6, .25);
+
+	}
+	
 	public void whiteToGreen(String key)
 	{
 		StdDraw.setPenColor(Color.GREEN);
@@ -164,9 +209,9 @@ public class KeyboardHero {
 	
 	public void setClassical(boolean setNormal) {
 		StdDraw.setPenColor(Color.WHITE);
-		StdDraw.filledRectangle(0.0, 1.02, 0.2, 0.06);
+		StdDraw.filledRectangle(0.0, 1.0218, 0.2, 0.071);
 		StdDraw.setPenColor(Color.BLACK);
-		StdDraw.rectangle(0.0, 1.02, 0.2, 0.06);
+		StdDraw.rectangle(0.0, 1.0218, 0.2, 0.071);
 		StdDraw.setPenColor(Color.BLACK);
 		StdDraw.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		if (setNormal) {

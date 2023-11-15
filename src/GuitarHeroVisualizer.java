@@ -16,7 +16,7 @@ public class GuitarHeroVisualizer {
 	
 	public void drawWave() {
 		StdDraw.setPenColor(StdDraw.WHITE);
-		StdDraw.filledRectangle((1.0 + 0.22)/2.0, 1.0, ((1.0 - 0.22)/2.0), 0.051);		
+		StdDraw.filledRectangle((1.0 + 0.22)/2.0, 1.0, ((1.0 - 0.22)/2.0), 0.051);	
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.show(0);
 		
