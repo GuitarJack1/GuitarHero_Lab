@@ -1,8 +1,10 @@
 /*
 *Song must be inputed in this format: (All are caps, blacks are sharps (B# = Cb) not flats)
+*start:
 *keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord timeInSong(s, double)
 *keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord timeInSong(s, double)
 *keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord timeInSong(s, double)
 *keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord timeInSong(s, double)
 *keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord timeInSong(s, double)
+*end
 */
