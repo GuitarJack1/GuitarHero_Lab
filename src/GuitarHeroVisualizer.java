@@ -4,7 +4,6 @@ public class GuitarHeroVisualizer {
 	Queue<Double> wave = new LinkedList<Double>();
 	
 	public GuitarHeroVisualizer (int accuracy) {
-		System.out.println(accuracy);
 		for (int i = 0; i < accuracy; i++) {
 			wave.offer(0.0);
 		}

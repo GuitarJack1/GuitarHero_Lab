@@ -14,15 +14,40 @@ public class GuitarHero {
 		 static Map<String, GuitarString> keyboard;
 		 static Map<String, Integer> keyToInt;
 		 static Set<String> alreadyPressed;
+		 static String white;
+		 static String black;
+		 static Map<String,Integer> KeyLocations;
 		 static KeyboardHero keyHero;
 		 static GuitarHeroVisualizer visualizer;
 		 static boolean normal = false;
-		 static final int WAVEVIS_ACCURACY = 150;
-		 static final int WAVEVIS_FPS = 60;
+		 static final int WAVEVIS_ACCURACY = 75;
+		 static final int WAVEVIS_FPS = 45;
+		 static final int LETTERSFALLING_FPS = 60;
 		 static final int CHANGEINSTRUMENT_KEYCODE = 16; //Shift
 		 
+		 static Set<FallingLetter> fLetters = new HashSet<FallingLetter>();
 		
 	    public static void main(String[] args) {
+	    	white = "qwertyuiop[zxcvbnm,./ "; 
+			black = "245789-=dfgjk;'";
+			KeyLocations = new HashMap<String, Integer>();
+			Set<Integer> notBlackKeys = new HashSet<Integer>();
+			notBlackKeys.add(1);
+			notBlackKeys.add(4);
+			notBlackKeys.add(8);
+			notBlackKeys.add(11);
+			notBlackKeys.add(15);
+			notBlackKeys.add(18);
+			for (int i = 0; i < 22; i++) {
+					KeyLocations.put(""+white.charAt(i), i);
+			}
+			int blackIndex = 0;
+			for (int i = 0; i < 21; i++) {
+				if (!notBlackKeys.contains(i)){
+					KeyLocations.put(""+black.charAt(blackIndex), i);
+					blackIndex++;
+				}
+			}
 	    	//Hello
 	        // Create a map of guitar strings
 	    	keyboard = new HashMap<String, GuitarString>();
@@ -48,6 +73,7 @@ public class GuitarHero {
 	                if (keyboard.keySet().contains(""+key)) {
 	                	// pluck the corresponding string
 	                	if (!alreadyPressed.contains(""+key)) {
+	                		fLetters.add(new FallingLetter(7, ""+key, KeyLocations, white.contains(""+key)));
 	                		keyHero.pressKey(""+key);
 	                	}
 	                	
@@ -80,9 +106,30 @@ public class GuitarHero {
 	            	}
 	            }
 	            
-	            // send the result to standard audio
-	            visualizer.addSample(sample);
 	            StdAudio.play(sample);
+	            
+	            Set<FallingLetter> remove = new HashSet<FallingLetter>();
+		        if (System.currentTimeMillis() % (int)((1.0/LETTERSFALLING_FPS) * 1000) == 0) {
+		            StdDraw.show(0);
+		            StdDraw.setPenColor(StdDraw.BLUE);
+		            StdDraw.filledRectangle(0.5, 0.505, .6, .43);
+		            StdDraw.setPenColor(StdDraw.BLACK);
+		            for (FallingLetter letter : fLetters) {
+		            	//System.out.println("Printing Letter: " + letter.letter() + ", at position: " + letter.x() + "x, and " + letter.y() + "y");
+		            	//System.out.print("hi");
+		            	StdDraw.text(letter.x(), letter.y(), letter.letter());
+		            }
+		            StdDraw.show();
+		        }
+		        for (FallingLetter letter : fLetters) {
+		            if (!letter.alive()) {remove.add(letter);continue;}
+		            letter.update();
+		        }
+		        for (FallingLetter letter : remove) {
+		            fLetters.remove(letter);
+		        }
+		        
+	            visualizer.addSample(sample);
 	            if (System.currentTimeMillis() % (int)((1.0/WAVEVIS_FPS) * 1000) == 0) {
 	            	visualizer.drawWave();
 	            }
