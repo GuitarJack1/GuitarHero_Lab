@@ -60,6 +60,7 @@ public class GuitarHero {
 	                }
 	                
 	            }
+	            
 	            double sample = 0;
 	            for (String key : keyboard.keySet()) {
 	            	// advance the simulation of each guitar string by one step
@@ -86,6 +87,11 @@ public class GuitarHero {
 	            }
 	        }
 	    }
+	    
+	    public static Set<String> getAlreadyPressed()
+        {
+        	return alreadyPressed;
+        }
 	    
 	    public static void drawWave(double[] waveArr) {
 	    	double prevX = 0.1;
