@@ -111,7 +111,7 @@ public class GuitarHero {
 	            Set<FallingLetter> remove = new HashSet<FallingLetter>();
 		        if (System.currentTimeMillis() % (int)((1.0/LETTERSFALLING_FPS) * 1000) == 0) {
 		            StdDraw.show(0);
-		            StdDraw.setPenColor(StdDraw.BLUE);
+		            StdDraw.setPenColor(StdDraw.WHITE);
 		            StdDraw.filledRectangle(0.5, 0.505, .6, .43);
 		            StdDraw.setPenColor(StdDraw.BLACK);
 		            for (FallingLetter letter : fLetters) {
