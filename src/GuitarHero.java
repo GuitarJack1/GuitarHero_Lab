@@ -116,7 +116,7 @@ public class GuitarHero {
 		           // StdDraw.filledRectangle(0.5, 0.505, .6, .43);
 		            SetBackground(700,700);
 		            StdDraw.show();
-		            StdDraw.setPenColor(StdDraw.BLACK);
+		            StdDraw.setPenColor(StdDraw.BLUE);
 		        
 		            for (FallingLetter letter : fLetters) {
 		            	//System.out.println("Printing Letter: " + letter.letter() + ", at position: " + letter.x() + "x, and " + letter.y() + "y");
