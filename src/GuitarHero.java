@@ -15,9 +15,12 @@ public class GuitarHero {
 		 static Map<String, Integer> keyToInt;
 		 static Set<String> alreadyPressed;
 		 static KeyboardHero keyHero;
+		 static GuitarHeroVisualizer visualizer;
 		 static boolean normal = false;
-		 static Queue<Double> waveVisual = new LinkedList<Double>();
+		 static final int WAVEVIS_ACCURACY = 150;
+		 static final int WAVEVIS_FPS = 60;
 		 static final int CHANGEINSTRUMENT_KEYCODE = 16; //Shift
+		 
 		
 	    public static void main(String[] args) {
 	    	//Hello
@@ -28,10 +31,10 @@ public class GuitarHero {
 	    	
 	    	populateKeyboard("q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ");
 	    	populateKeyToInt();
-	        
+	    	
 	    	keyHero = new KeyboardHero(700, 700);
+	    	visualizer = new GuitarHeroVisualizer(WAVEVIS_ACCURACY);
 	        play(keyboard);
-	        
 	    }
 	    
 	    private static void play(Map<String, GuitarString> keyboard) {
@@ -78,7 +81,11 @@ public class GuitarHero {
 	            }
 	            
 	            // send the result to standard audio
+	            visualizer.addSample(sample);
 	            StdAudio.play(sample);
+	            if (System.currentTimeMillis() % (int)((1.0/WAVEVIS_FPS) * 1000) == 0) {
+	            	visualizer.drawWave();
+	            }
 	            
 	            if (StdDraw.isKeyPressed(CHANGEINSTRUMENT_KEYCODE)) {
 	            	keyHero.setClassical(!normal);
@@ -101,7 +108,6 @@ public class GuitarHero {
 	    		StdDraw.line(prevX, prevY, prevX + 0.005, waveArr[0]*0.1 + 0.9);
 	    	}
 	    }
-	    
 	    private static void populateKeyboard(String input) {
 	    	for(int i = 1;i<=input.length();i++)
 	    	{
