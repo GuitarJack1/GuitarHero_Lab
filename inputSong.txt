@@ -8,3 +8,29 @@
 *keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord keyInChord timeInSong(s, double)
 *end
 */
+Hedwig’s Theme:
+start:
+B3 1.64
+E3 2.47
+G3 3.70
+F#3 4.11
+E3 4.93
+B4 6.58    
+A4 7.40   
+F#3 9.86
+E3 12.33
+G3 13.56
+F#3 13.97
+D#3 14.79
+F#3 16.44
+C3 17.26
+C3 19.73
+C3 21.37
+E3 22.19
+G3 23.42
+F#3 23.84
+E3 24.66
+B4 26.30
+D4 27.12
+C#4 28.77
+end

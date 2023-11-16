@@ -9,6 +9,7 @@ public class FallingLetter {
 	final double STARTING_Y = 0.7;
 	final double ENDING_Y = 0.1;
 	final double GOAL_POS = 0.15;
+	final double LEEWAY = 0.025;
 	//double changeInY;
 	
 	double xPos;
@@ -50,6 +51,10 @@ public class FallingLetter {
 	
 	public boolean alive() {
 		return alive;
+	}
+	
+	public boolean correct() {
+		return yPos < GOAL_POS + LEEWAY && yPos > GOAL_POS - LEEWAY;
 	}
 	
 	public double getChangeInY() {

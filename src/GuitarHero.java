@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.io.*;
 import java.util.*;
 
 public class GuitarHero {
@@ -20,18 +21,27 @@ public class GuitarHero {
 		 static Map<String,Integer> KeyLocations;
 		 static KeyboardHero keyHero;
 		 static GuitarHeroVisualizer visualizer;
+		 static PlaySongTiming songTiming;
 		 static boolean normal = false;
 		 static final int WAVEVIS_ACCURACY = 75; //75;
 		 static final int WAVEVIS_FPS = 45; //45;
 		 static final int LETTERSFALLING_FPS = 60; //60;
 		 static final int CHANGEINSTRUMENT_KEYCODE = 16; //Shift
+		 static final boolean HUMAN_PLAYING = true; //True = User plays, False = Computer plays
+		 static final double PAUSE_TIME = 3.0; //Seconds
+		 static Set<FallingLetter> toBePressed;
+		 static Set<FallingLetter> totalGoaled;
+		 
+		 static double score = 0;
 		 
 		 static Set<FallingLetter> fLetters = new HashSet<FallingLetter>();
 		
-	    public static void main(String[] args) {
+	    public static void main(String[] args) throws FileNotFoundException{
 	    	white = "qwertyuiop[zxcvbnm,./ "; 
 			black = "245789-=dfgjk;'";
 			KeyLocations = new HashMap<String, Integer>();
+			toBePressed = new HashSet<FallingLetter>();
+			totalGoaled = new HashSet<FallingLetter>();
 			Set<Integer> notBlackKeys = new HashSet<Integer>();
 			notBlackKeys.add(1);
 			notBlackKeys.add(4);
@@ -60,22 +70,60 @@ public class GuitarHero {
 	    	
 	    	keyHero = new KeyboardHero(700, 700);
 	    	visualizer = new GuitarHeroVisualizer(WAVEVIS_ACCURACY);
+	    	songTiming = new PlaySongTiming(HUMAN_PLAYING);
 	        play(keyboard);
+	        System.exit(0);
 	    }
 	    
 	    private static void play(Map<String, GuitarString> keyboard) {
 	    	// the main input loop
+	    	Stopwatch watch = new Stopwatch();
 	        while (true) {
+	        	for (FallingLetter fl : toBePressed) {
+	        		if (totalGoaled.contains(fl)) {continue;}
+        			if (fl.correct()) {
+        				totalGoaled.add(fl);
+        				StdDraw.show(0);
+	            		StdDraw.setPenColor(StdDraw.BLACK);
+	            		StdDraw.filledRectangle(1.05, 0.5/7.0/2.0, .05, .1);
+	            		StdDraw.setPenColor(StdDraw.WHITE);
+	            		StdDraw.text(1.025, 0.5/7.0/2.0, ""+(Math.round((score/totalGoaled.size())*100)) + "%");
+	            		StdDraw.show();
+        			}
+                }
 	        	// check if the user has typed a key, and, if so, process it
 	            if (StdDraw.hasNextKeyTyped()) {
 	 
 	                // the user types this character
 	                char key = StdDraw.nextKeyTyped();
+	                
 	                if (keyboard.keySet().contains(""+key)) {
-	                	// pluck the corresponding string
 	                	if (!alreadyPressed.contains(""+key)) {
-	                		fLetters.add(new FallingLetter(7, ""+key, KeyLocations, white.contains(""+key)));
 	                		keyHero.pressKey(""+key);
+	                		if (songTiming.getHumanPlay()) {
+		                		Set<FallingLetter> removed = new HashSet<FallingLetter>();
+		                		for (FallingLetter fl : toBePressed) {
+		                			if (fl.letter().equals(""+key)) {
+		                				if (fl.correct()) {
+		                					StdDraw.setPenColor(StdDraw.GREEN);
+		                					StdDraw.filledRectangle(1.05, 1.5, 0.025, 0.025);
+		                					removed.add(fl);
+		                					score++;
+		                					System.out.println("Score now: " + score);
+		                					StdDraw.show(0);
+		        		            		StdDraw.setPenColor(StdDraw.BLACK);
+		        		            		StdDraw.filledRectangle(1.05, 0.5/7.0/2.0, .05, .1);
+		        		            		StdDraw.setPenColor(StdDraw.WHITE);
+		        		            		StdDraw.text(1.025, 0.5/7.0/2.0, ""+(Math.round((score/totalGoaled.size())*100)) + "%");
+		        		            		StdDraw.show();
+		                				}
+		                			}
+		                		}
+	                		
+		                		for (FallingLetter fl : removed) {
+		                			toBePressed.remove(fl);
+		                		}
+	                		}
 	                	}
 	                	
 	                	if (!normal) {
@@ -89,6 +137,31 @@ public class GuitarHero {
 	                	alreadyPressed.add(""+key);
 	                }
 	                
+	            }
+	            
+	            double elapsedTime = watch.elapsedTime();
+	            Set<Double> remove1 = new HashSet<Double>();
+	            for (double time : songTiming.getMap().keySet()) {
+		            if (time - PAUSE_TIME <= elapsedTime) {
+		            	for (String s : songTiming.getMap().get(time)) {
+		            		FallingLetter fl = new FallingLetter(7, s, KeyLocations, white.contains(s));
+		            		fLetters.add(fl);
+		            		if (songTiming.getHumanPlay()) {
+		            			toBePressed.add(fl);
+		            		}
+		            		if (!songTiming.getHumanPlay()) {
+		            			keyboard.get(s).pluck();
+		            		}
+		            	}
+		            	remove1.add(time);
+		            }
+	            }
+	            for (double d : remove1) {
+	            	songTiming.usedTime(d);
+	            }
+	            
+	            if (songTiming.getMap().keySet().size() == 0 && !songTiming.getHumanPlay()) {
+	            	return;
 	            }
 	            
 	            double sample = 0;
@@ -131,6 +204,9 @@ public class GuitarHero {
 		        }
 		        for (FallingLetter letter : remove) {
 		            fLetters.remove(letter);
+		            if (songTiming.getHumanPlay()) {
+		            	toBePressed.remove(letter);
+		            }
 		        }
 		        
 	            visualizer.addSample(sample);
@@ -140,7 +216,6 @@ public class GuitarHero {
 	            }
 	            
 	            if (StdDraw.isKeyPressed(CHANGEINSTRUMENT_KEYCODE)) {
-	            	System.out.println("hi");
 	            	keyHero.setClassical(!normal);
 	            	normal = !normal;
 	            	while (StdDraw.isKeyPressed(CHANGEINSTRUMENT_KEYCODE)) {};
@@ -209,6 +284,11 @@ public class GuitarHero {
 			//StdDraw.filledRectangle(0.5, 0.505, .6, .43);
 			StdDraw.show(0);
 			StdDraw.picture(.503, .5, "DarkCloudRainyBlahBG.png", 1, .85);
+			StdDraw.setPenColor(Color.YELLOW);
+			StdDraw.line(0.0, .15, 1.0, .15);
+			StdDraw.setPenColor(Color.BLACK);
+			StdDraw.line(0.0, .15+.025, 1.0, .15+.025);
+			StdDraw.line(0.0, .15-.025, 1.0, .15-.025);
 			StdDraw.show();
 			/*
 			//StdDraw.setPenColor(Color.CYAN);
